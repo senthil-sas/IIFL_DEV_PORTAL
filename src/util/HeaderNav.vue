@@ -181,10 +181,10 @@ const sidebarOpen = ref(false);
 const navigation = ref<Ttab[]>([
     { id: 0, name: 'My Apps', key: '', path: '/developer' },
     // { id: 1, name: 'API Docs', key: '', path: '/api_docs' },
-    { id: 2, name: 'Community', key: '', path: '/community' },
+    // { id: 2, name: 'Community', key: '', path: '/community' },
 ]);
 const activeTab = ref<number | null>(0);
-type Ttab = { id: number, name: string, key: string, path: string, disabled?: boolean }
+type Ttab = { id: number, name: string, key: string, path: string }
 // const tabs = ref<Ttab[]>([
 //     { id: 0, name: 'My Apps', key: '', path: '/home' },
 //     { id: 1, name: 'API Docs', key: '', path: '/api_docs' },
@@ -210,7 +210,14 @@ const goToHome = () => {
 }
 
 const navigateHead = (data: Ttab) => {
-    if(data.hasOwnProperty('disabled') && data?.disabled) return;
+    if(data.name == 'Community') {
+        window.open(store.state.communityRedirectUrl , '_blank')
+        return
+    }
+    if(data.name == 'API Docs') {
+        window.open(`${window.location.origin}/APIDOC.pdf`, '_blank')
+        return
+    }
     router.push(data.path);
 }
 </script>

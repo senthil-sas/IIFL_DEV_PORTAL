@@ -1,5 +1,5 @@
 <template>
-    <div class="h-auto w-[500px] border rounded-[20px] shadow-[0px_10px_50px_0px_#B5B5B54D]">
+    <div class="h-auto w-[500px] border rounded-[20px] shadow-[0px_10px_50px_0px_#B5B5B54D] z-[999] bg-white">
         <div class="p-[50px]">
             <div>
                 <img class="mx-auto" src="../../assets/img/login/Logo.svg" alt="IIFL-Logo">

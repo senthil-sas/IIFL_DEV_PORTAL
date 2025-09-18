@@ -31,6 +31,7 @@ const getDefaultState = () => {
     // devPortalRedirectUrl : 'https://iifl.codifi.in/developer/#/?partner=true',
     devPortalRedirectUrl : 'https://iifl.codifi.in/#/developer/login',
     webPortalRedirectUrl :  `https://sandboxmarkets.iiflcapital.com/?appkey=slqhgvKvdQWVvUS&v=1`,
+    communityRedirectUrl: 'https://github.com/IIFLCapital/IIFL-Markets-Open-API-Postman-Collection-Official-/issues',
   }
 }
 const store = createStore({

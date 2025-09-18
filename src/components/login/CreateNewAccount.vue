@@ -1,12 +1,12 @@
 <template>
-    <div class="h-auto border w-full sm:w-[500px] rounded-[20px] shadow-[0px_10px_50px_0px_#B5B5B54D]">
+    <div class="h-auto border w-full sm:w-[500px] rounded-[20px] shadow-[0px_10px_50px_0px_#B5B5B54D] z-[999] bg-white">
         <div class="px-5 py-6 lg:p-[50px] sm:space-y-[40px]">
             <div class="flex justify-start sm:flex-none">
                 <img class="mx-auto hidden sm:block" :src="store.state.clientLogo" alt="IIFL-Logo">
                 <img @click="backToStage()" class="sm:hidden" src="../../assets/img/login/backNavigation.svg" alt="navigation">
             </div>
             <div>
-                <p class="font-bold login-header text-[20px] sm:text-[28px] leading-[40px] pt-[24px] sm:pt-0 text-center text-[#282828]">Enter Company Details</p>
+                <p class="font-bold login-header text-lg sm:text-2xl leading-[40px] pt-[24px] sm:pt-0 text-center text-[#282828]">Enter Company Details</p>
             </div>
             <form @submit.prevent="OnSubmit()">
                 <div class="mt-[11px]  text-[11px] h-[11px] text-[#EB1414]"><span v-if="email.length !=0 && !validateEmail">Please Provide Valid Email Id</span></div>

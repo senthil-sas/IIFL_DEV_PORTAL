@@ -69,8 +69,7 @@
                                                         class="w-full h-[40px] md:h-[50px] px-[18px] cursor-pointer rounded-lg md:rounded-[10px] border-dashed border border-[#83838B] relative"
                                                         for="dropzone-file">
                                                         <input type="file" @click="errorMessage = '';imgUrl = null"
-                                                            @change="fileUpload" class="hidden" autocomplete="off"
-                                                            :disabled="isFileNameExist" name="name" id="dropzone-file"
+                                                            @change="fileUpload" class="hidden" autocomplete="off" name="name" id="dropzone-file"
                                                             accept=".jpg,.png" placeholder="" />
                                                         <div class="absolute  flex items-center h-full">
                                                             <img v-if="fileName == ''"
@@ -83,7 +82,7 @@
                                                                 {{ fileName }}
                                                             </div>
                                                         </div>
-                                                        <div v-if="fileName != ''" @click="resetFile()"
+                                                        <div v-if="fileName != ''"
                                                             class="absolute right-0 h-full  z-20 px-4 text-[#633EE3] text-[12px] items-center flex">
                                                             Re-Upload
                                                         </div>
@@ -179,34 +178,36 @@ const errorMessage = ref('')
 const imgUrl = ref()
 const resetFile = () => {
     fileName.value = '';
+    errorMessage.value = '';
+    imgUrl.value = '';
 }
 const fileUpload = async (event: any) => {
+    resetFile()
     errorMessage.value = ''
     const input = event.target;
-    let maxSizeInMB = 1
-    if (input.files && input.files[0] && input.files[0].size <= maxSizeInMB * 1024 * 102) {
-        fileName.value = input.files[0].name;
-        if (event) {
-            const convertBase64 = (file: any) => {
-                return new Promise((resolve, reject) => {
-                    const fileReader = new FileReader();
-                    fileReader.readAsDataURL(file);
-                    fileReader.onload = () => {
-                        resolve(fileReader.result);
-                    };
-                    fileReader.onerror = (error) => {
-                        reject(error);
-                    };
-                });
-            };
-            imgUrl.value = await convertBase64(input.files[0]);
+    let maxSizeInMB = 1;
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024; // 1,048,576 bytes
 
-
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        if (file.size <= maxSizeInBytes) {
+            fileName.value = file.name;
+            if (event) {
+                const convertBase64 = (file: File) => {
+                    return new Promise((resolve, reject) => {
+                        const fileReader = new FileReader();
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = () => resolve(fileReader.result);
+                        fileReader.onerror = (error) => reject(error);
+                    });
+                };
+                imgUrl.value = await convertBase64(file);
+            }
+        } else {
+            errorMessage.value = `File size must not exceed ${maxSizeInMB} MB.`;
+            event.preventDefault();
+            return;
         }
-    } else if (input.files[0].size > maxSizeInMB * 1024 * 1024) {
-        errorMessage.value = `File size must not exceed ${maxSizeInMB} MB.`;
-        event.preventDefault();
-        return
     }
 }
 
@@ -225,6 +226,9 @@ const handleSubmit = () => {
     redirectUrlErr.value = ''
     const currentRegex = ipType.value.key == 'ipv4' ? validateStaticIpRegex : validateIPv6Regex
     const exampleText = ipType.value.key == 'ipv4' ? '(e.g., 192.168.1.1)' : '(e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334)'
+    primaryStaticIp.value = primaryStaticIp.value.trim()
+    secondaryStaticIp.value = secondaryStaticIp.value.trim()
+
     if(!validateStaticIpRegex.test(primaryStaticIp.value)) {
         primaryIpErr.value = `Invalid IP format. Please enter a valid ${ipType.value.name} address\n${exampleText}.`
     }

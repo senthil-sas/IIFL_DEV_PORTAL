@@ -6,7 +6,7 @@
         </div>
         <ul class="flex space-x-8 xl:space-x-16 items-center h-full">
             <li :class="activeTab == record.id && activeTab == 2 ? 'bg-[#FFF5EE] text-[#F37021] font-bold' : 'font-medium text-[#515151]'"
-                class="text-[14px]  cursor-not-allowed relative h-full flex select-none" @click="navigateTo(record)"
+                class="text-[14px] cursor-pointer relative h-full flex select-none" @click="navigateTo(record)"
                 v-for="record in tabs" :key="record.id">
                 <div class="my-auto">
                     <span class="px-2">{{ record.name }}</span>
@@ -169,21 +169,19 @@ import {
     TransitionRoot,
 } from '@headlessui/vue'
 import { ref } from 'vue';
-import { useRouter } from 'vue-router'
 import { useStore } from 'vuex';
 const store = useStore()
 const navigation = [
-    // {id: 0, name: 'API Docs', key: '#api', path: '/' },
+    {id: 0, name: 'API Docs', key: '#api', path: '/' },
     {id: 1, name: 'Community', key: '#community', path: '/' },
     // {id: 2, name: 'Key Partners', key: '', path: '/key_partners' },
 ];
 const sidebarOpen = ref(false);
-const router = useRouter()
 const activeTab = ref<number | null>(null)
 type Ttab = { id: number, name: string, key: string, path: string, disabled?: boolean }
 const tabs = ref<Ttab[]>([
-    // { id: 0, name: 'API Docs', key: '#api', path: '/' },
-    { id: 1, name: 'Community', key: '#community', path: '/', disabled:true },
+    { id: 0, name: 'API Docs', key: '#api', path: '/' },
+    { id: 1, name: 'Community', key: '#community', path: '/'},
     // { id: 2, name: 'Key Partners', key: '', path: '/key_partners' },
 ]);
 
@@ -200,10 +198,15 @@ const navbarRedirection=ref([
 { name: 'Login as Partner', href: `${devPortalRedirectUrl}`, target: '_blank' }
 ]);
 
-const navigateTo = (data: Ttab) => { 
-    // activeTab.value = data.id;
-    // router.push({ path: data.path, hash: data.key });
-    // sidebarOpen.value=false
+const navigateTo = (data:any) => { 
+    if(data.name == 'Community') {
+        window.open(store.state.communityRedirectUrl , '_blank')
+        return
+    }
+    if(data.name == 'API Docs') {
+        window.open(`${window.location.origin}/APIDOC.pdf`, '_blank')
+        return
+    }
 }
 // const navigateAsPartner = (): void => {
 //     window.open("https://iifl.codifi.in/developer/", '_self');

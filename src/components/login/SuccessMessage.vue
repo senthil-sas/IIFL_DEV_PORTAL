@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-1 justify-center item-center md:h-screen" :class="{ 'h-screen' : getSuccessMessage}">
     <div class="flex flex-col justify-center items-center px-5">
-      <div :class="getSuccessMessage ? '':'border shadow-[0px_10px_50px_0px_#B5B5B54D]'" class="flex flex-col  rounded-[20px] py-8 sm:border-0 sm:py-0  sm:shadow-none">
+      <div :class="getSuccessMessage ? '':'border shadow-[0px_10px_50px_0px_#B5B5B54D] z-[999] bg-white'" class="flex flex-col  rounded-[20px] py-8 sm:border-0 sm:py-0  sm:shadow-none">
         <div>
           <img
             class="mx-auto w-[60px] h-[60px] sm:size-auto"

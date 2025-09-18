@@ -290,15 +290,15 @@ const actions = {
   async setHeaderTabs({ state }: any, isAdmin: any) {
     const tabs = [
       { id: 0, name: 'My Apps', key: '', path: '/developer/' },
-      // { id: 1, name: 'API Docs', key: '', path: '/developer/api_docs' },
-      { id: 2, name: 'Community', key: '', path: '/developer/community', disabled:true },
+      { id: 1, name: 'API Docs', key: '', },
+      { id: 2, name: 'Community', key: '', path: '/developer/community', },
     ]
 
     const adminTabs = [
       { id: 0, name: 'My Apps', key: '', path: '/developer/' },
       { id: 1, name: 'Apps Approval', key: '', path: '/developer/approval' },
-      // { id: 2, name: 'API Docs', key: '', path: '/developer/api_docs' },
-      { id: 3, name: 'Community', key: '', path: '/developer/community', disabled:true },
+      { id: 2, name: 'API Docs', key: '', },
+      { id: 3, name: 'Community', key: '', path: '/developer/community' },
     ]
 
     state.headerTabs = isAdmin ? adminTabs : tabs

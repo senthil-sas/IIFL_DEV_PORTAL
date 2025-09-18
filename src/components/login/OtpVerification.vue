@@ -1,5 +1,5 @@
 <template>
-    <div class="h-auto w-full sm:w-[500px] border rounded-[20px] shadow-[0px_10px_50px_0px_#B5B5B54D]">
+    <div class="h-auto w-full sm:w-[500px] border rounded-[20px] shadow-[0px_10px_50px_0px_#B5B5B54D] z-[999] bg-white">
         <div class="px-5 py-6 md:p-[50px]">
             <div class="flex justify-start ">
                 <img class="mx-auto hidden sm:block" :src="store.state.clientLogo" alt="IIFL-Logo">

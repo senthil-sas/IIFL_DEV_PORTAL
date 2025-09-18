@@ -1,13 +1,13 @@
 <template>
     <!-- w-[320px] -->
-    <div class="h-auto border border-[#E5E5E5] w-full sm:w-[500px] rounded-[20px] shadow-[0px_10px_50px_0px_#B5B5B54D] relative bg-white">
+    <div class="h-auto border border-[#E5E5E5] w-full sm:w-[500px] rounded-[20px] shadow-[0px_10px_50px_0px_#B5B5B54D] z-[999] bg-white relative bg-white">
         <div class="px-5 py-6 md:p-[50px] sm:space-y-[40px]">
             <div class="flex justify-start sm:flex-none">
                 <img class="mx-auto hidden sm:block" :src="store.state.clientLogo" alt="IIFL-Logo">
                 <!-- <img class="sm:hidden" src="../../assets/img/login/backNavigation.svg" alt="navigation"> -->
             </div>
             <div>
-                <p class="font-bold login-header text-[20px] sm:text-[28px] leading-[40px] pt-[24px] sm:pt-0 text-center text-[#282828]">Welcome to Partner Portal!</p>
+                <p class="font-bold login-header text-lg sm:text-2xl leading-[40px] pt-[24px] sm:pt-0 text-center text-[#282828]">Welcome to Partner Portal!</p>
                 <p class="font-medium text-center text-[#919191] text-[14px] px-[40px] sm:px-0 lg:text-[16px] pt-4 sm:pt-[20px] leading-[21px]">Enter details below to access your account</p>
             </div>
             <form @submit.prevent="onSubmit" autocomplete="off">
