@@ -11,10 +11,7 @@
                     class="font-bold login-header text-lg sm:text-2xl text-center leading-[40px] mt-2 sm:mt-3 text-[#282828]">
                     Set New Password
                 </div>
-                <div class="font-medium text-center text-[#919191] text-[16px] mt-3 sm:mt-4 leading-[21px]">Please enter
-                    a
-                    new password
-                </div>
+                <div class="font-medium text-center text-[#919191] text-[16px] mt-3 sm:mt-4 leading-[21px]">Please enter a new password</div>
             </div>
             <div v-else-if="stage == 'newPasswordForPartner'">
                 <div
@@ -50,54 +47,18 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="flex flex-col mt-2 sm:mt-[14px]">
-                    <div class="flex">
-                        <div class="flex space-x-[59px]">
-                            <div v-if="newPasswordValidation?.validChar" class="flex space-x-[5px]">
-                                <img src="../../assets/img/login/enableTick.svg" alt="enable-Icon">
-                                <span :class="newPasswordValidation?.validChar ? 'text-[#ACACAC]' : 'text-[#D2D5DF]'"
-                                    class="text-[11px]  font-medium">8 - 12 Characters </span>
-                            </div>
-                            <div v-else class="flex space-x-[5px]">
-                                <img src="../../assets/img/login/disableTick.svg" alt="enable-Icon">
-                                <span class="text-[11px] text-[#D2D5DF] font-medium">8 - 12 Characters</span>
-                            </div>
-                            <div v-if="newPasswordValidation?.atleastNo" class="flex space-x-[5px]">
-                                <img src="../../assets/img/login/enableTick.svg" alt="enable-Icon">
-                                <span :class="newPasswordValidation?.validChar ? 'text-[#ACACAC]' : 'text-[#D2D5DF]'"
-                                    class="text-[11px]  font-medium">Atleast 1 Number</span>
-                            </div>
-                            <div v-else class="flex space-x-[5px]">
-                                <img src="../../assets/img/login/disableTick.svg" alt="enable-Icon">
-                                <span class="text-[11px] text-[#D2D5DF] font-medium">Atleast 1 Number</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-[8px] sm:mt-[12px]">
-                        <div v-if="newPasswordValidation.noSpaceDots" class="flex space-x-[5px]">
-                            <img src="../../assets/img/login/enableTick.svg" alt="enable-Icon">
-                            <span :class="newPasswordValidation?.noSpaceDots ? 'text-[#ACACAC]' : 'text-[#D2D5DF]'"
-                                class="text-[11px]  font-medium">Do not have space & dots</span>
-                        </div>
-                        <div v-else class="flex space-x-[5px]">
-                            <img src="../../assets/img/login/disableTick.svg" alt="enable-Icon">
-                            <span class="text-[11px] text-[#D2D5DF] font-medium">Do not have space & dots</span>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="grid text-xs text-[#C2BFCD] grid-cols-2 py-1 justify-between min-h-3">
                     <div v-for="(item, index) in validationArray" :key="index" class="mb-1"
                         :class="{ 'col-span-2': index == 4 }">
                         <div class="flex gap-1 items-center">
                             <icons :name="'tick'" :color="item.active ? '#5438A0' : '#C2BFCD'"></icons>
                             <span class="whitespace-nowrap"
-                                :class="item.active ? 'font-semibold text-[#9992B1]' : 'text-[#C2BFCD]'">{{ item.name
-                                }}</span>
+                                :class="item.active ? 'font-semibold text-[#9992B1]' : 'text-[#C2BFCD]'">{{ item.name}}</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-3 md:mt-5">
+                <div class="mt-1 md:mt-3">
                     <label for="newPassword"
                         class="block sm:text-[14px] font-medium  text-secondary sm:leading-[19px] text-[12px] leading-[16px]">Re-enter
                         Password</label>
@@ -120,7 +81,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-[10px] sm:mt-[12px]">
+                    <div class="mt-1">
                         <span v-if="password == newPassword && newPassword != '' && password != ''"
                             class="py-14 text-[#919191] text-[11px]">
                             <img class="inline" src="../../assets/img/login/greenTick.svg" alt="">
@@ -164,11 +125,6 @@ const showPassword = ref<Boolean>(false);
 const newshowPassword = ref<Boolean>(false);
 // const isAgree = ref<Boolean>(false);
 
-const newPasswordValidation = ref({
-    validChar: false,
-    atleastNo: false,
-    noSpaceDots: false
-});
 const validationArray = ref(validationArrayVal)
 
 const stage = computed(() => store.getters["getLoginStage"]);
@@ -186,38 +142,10 @@ const backToStage = () => {
     }
 }
 
-// const passwordValidate = () => {
-//     const isNoExit = /(?=.*\d)/;
-//     const isnoSpace = /^(?!.*[.\s]).+$/;
-//     if (password.value.length >= 8 && password.value.length <= 12) {
-//         newPasswordValidation.value.validChar = true;
-//     }
-//     else {
-//         newPasswordValidation.value.validChar = false;
-//     }
-
-//     if (isNoExit.test(password.value)) {
-//         newPasswordValidation.value.atleastNo = true;
-//     }
-//     else {
-//         newPasswordValidation.value.atleastNo = false;
-//     }
-
-//     if (isnoSpace.test(password.value)) {
-//         newPasswordValidation.value.noSpaceDots = true;
-//     }
-//     else {
-//         newPasswordValidation.value.noSpaceDots = false;
-//     }
-// }
-
 const validateForm = () => {
-    return password.value == newPassword.value && newPassword.value != '' && password.value != '' && newPasswordValidation.value.validChar && newPasswordValidation.value.atleastNo && newPasswordValidation.value.noSpaceDots
+    return password.value == newPassword.value && newPassword.value != '' && password.value != '' && validationCondition.value
 }
 
-// watch(() => password.value, () => {
-//     passwordValidate();
-// })
 
 const viewPassword = () => {
     showPassword.value = !showPassword.value;

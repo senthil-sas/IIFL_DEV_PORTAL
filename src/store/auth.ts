@@ -153,7 +153,7 @@ const actions = {
               resp.data.result[0].message == "OTP sent successfully" ? commit('setLoginStage','otpVerification',{root:true}) : ''
             }
           } else{
-            commit('setErrMsg', resp.data.result.message )
+            commit('setErrMsg', resp.data.message || resp.data.result.message )
           }
         },
         (error) => {
