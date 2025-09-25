@@ -1,14 +1,14 @@
 <template>
     <div class="mt-8 flow-root">
-        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8"
+        <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8"
             v-if="props.sessionData && props.sessionData.length > 0">
             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-[15px]">
-                    <table class="min-w-full ">
+                <div class=" shadow ring-1 ring-black ring-opacity-5 sm:rounded-[15px]">
+                    <table class="min-w-full sm:rounded-[15px]">
                         <thead class="bg-[#F6F6F6]">
                             <tr>
                                 <th scope="col"
-                                    class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-[#919191] sm:pl-6">
+                                    class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-[#919191] sm:pl-6 sm:rounded-tl-[15px]">
                                     <input id="comments" aria-describedby="comments-description" name="comments"
                                         type="checkbox" v-model="checkBoxSelectAll"
                                         class="h-4 w-4 rounded-sm !border-[#919191] cursor-pointer accent-orange-600" />
@@ -25,14 +25,14 @@
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-[#919191]">
                                     Expiry
                                 </th>
-                                <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-[#919191]">
+                                <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-[#919191] sm:rounded-tr-[15px]">
                                     Action
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
                             <tr class="z-10" v-for="(record, index) in props.sessionData" :key="index">
-                                <td class="text-center py-3.5 pl-4 pr-3  sm:pl-6" :id="`${index}_sessioncheckbox`">
+                                <td class="text-center py-3.5 pl-4 pr-3  sm:pl-6" :class="{ 'sm:rounded-bl-[15px]' : props.sessionData.length == index + 1}" :id="`${index}_sessioncheckbox`">
                                     <input aria-describedby="comments-description" name="comments" type="checkbox"
                                         v-model="selectedCheckbox" :value="record" :id="`${index}_table_td_${index}`"
                                         class="h-4 w-4 rounded-sm !border-[#919191] cursor-pointer accent-orange-600" />
@@ -45,7 +45,7 @@
                                     <div class="longTxtRestrict">{{ record.userSession }}</div>
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-[#363636]">{{ record.expiryDate || 'NA'}}</td>
-                                <td
+                                <td :class="{ 'sm:rounded-br-[15px]' : props.sessionData.length == index + 1}"
                                     class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
                                     <a class="text-indigo-600 absolute hover:text-indigo-900 text-left">
                                         <Menu as="div" class=" inline-block text-left ">
