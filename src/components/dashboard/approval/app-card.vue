@@ -1,8 +1,8 @@
 <template>
     <div class="w-full mt-5 hidden lg:block" v-for="(item,idx) of props.data" :key="idx">
         <div class="flex border rounded-[10px]">
-            <div class="py-[28px] w-[90px] h-[101px] px-[10px] bg-[#F6F6F6] flex items-center justify-center rounded-l-[10px]">
-                <img class="my-auto" v-if="item.companyLogo && item.companyLogo.startsWith('data:') && item.companyLogo.includes('base64')" :src="item.companyLogo" alt="trade-smart">
+            <div class="w-[90px] h-[101px] px-[10px] bg-[#F6F6F6] flex items-center justify-center rounded-l-[10px]">
+                <img class="w-full h-full object-contain py-2" v-if="item.companyLogo && item.companyLogo.startsWith('data:') && item.companyLogo.includes('base64')" :src="item.companyLogo" alt="trade-smart">
                 <div v-else>
                     <Avatar :name="item.appName"/>
                 </div>
@@ -76,7 +76,7 @@
         <div class="flex flex-col " v-for="(item,idx) of props.data" :key="idx">
             <div class="flex justify-between py-[7px] px-4 bg-[#F6F6F6] border-t border-r border-l rounded-t-[15px]">
                 <div>
-                    <img class="my-auto" src="../../../assets/img/Home/icon-TradeSmart.svg" alt="trade-smart">
+                    <img class="w-full h-full object-contain py-2" src="../../../assets/img/Home/icon-TradeSmart.svg" alt="trade-smart">
                 </div>
                 <div>
                     <div class="h-full my-auto flex flex-col items-center justify-center">

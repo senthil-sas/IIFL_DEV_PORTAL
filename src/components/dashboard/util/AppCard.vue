@@ -1,8 +1,8 @@
 <template>
     <div class="w-full mt-5 hidden lg:block" v-for="(item,idx) of props.data" :key="idx">
         <div class="flex border rounded-[10px]">
-            <div class="py-[28px] w-[90px] h-[101px] px-[10px] bg-[#F6F6F6] flex items-center justify-center rounded-l-[10px]">
-                <img class="my-auto" v-if="item.companyLogo && item.companyLogo.startsWith('data:') && item.companyLogo.includes('base64')" :src="item.companyLogo" alt="trade-smart">
+            <div class="w-[90px] h-[101px] px-[10px] bg-[#F6F6F6] flex items-center justify-center rounded-l-[10px]">
+                <img class="w-full h-full object-contain py-2" v-if="item.companyLogo && item.companyLogo.startsWith('data:') && item.companyLogo.includes('base64')" :src="item.companyLogo" alt="trade-smart">
                 <div v-else>
                     <Avatar :name="item.appName"/>
                 </div>
@@ -22,8 +22,8 @@
                 </div>
                 <div class="py-[28px] px-[10px] ">
                     <div class="border-e border-dashed">
-                        <p class=" font-semibold text-secondary text-[14px] text-center">App Secret Key</p>
-                        <p :title="item.appSecret"  class="font-semibold text-[#363636] text-[16px] text-center text-ellipsis overflow-hidden">{{item.appSecret}}</p>
+                        <p class=" font-semibold text-secondary text-[14px] text-center">Algo Registration Type</p>
+                        <p :title="item.appSecret"  class="font-semibold text-[#363636] text-[16px] text-center text-ellipsis overflow-hidden">{{item.algoRegsType}}</p>
                     </div>
                 </div>
                 <div class="py-[28px] px-[10px] ">
@@ -76,7 +76,7 @@
         <div class="flex flex-col mt-3" v-for="(item,idx) of props.data" :key="idx">
             <div class="flex justify-between py-[7px] px-4 bg-[#F6F6F6] border-t border-r border-l rounded-t-[15px]">
                 <div>
-                    <img class="my-auto" v-if="item.companyLogo && item.companyLogo.startsWith('data:') && item.companyLogo.includes('base64')" :src="item.companyLogo" alt="trade-smart">
+                    <img class="w-full h-full object-contain py-2" v-if="item.companyLogo && item.companyLogo.startsWith('data:') && item.companyLogo.includes('base64')" :src="item.companyLogo" alt="trade-smart">
                     <div v-else>
                         <Avatar :name="item.appName"/>
                     </div>
@@ -130,8 +130,8 @@
                     </div>
                     <div class="py-[20px]  ">
                         <div class="lg:border-e-2 lg:border-dashed">
-                            <p class=" font-semibold text-secondary text-[11px] text-center leading-4">App Secret Key</p>
-                            <p class="font-semibold text-[#363636] text-[12px] text-center leading-[14px] text-ellipsis overflow-hidden">{{item.appSecret}}</p>
+                            <p class=" font-semibold text-secondary text-[11px] text-center leading-4">Algo Registration Type</p>
+                            <p class="font-semibold text-[#363636] text-[12px] text-center leading-[14px] text-ellipsis overflow-hidden">{{item.algoRegsType}}</p>
                         </div>
                     </div>
                     <div class="py-[20px]  ">

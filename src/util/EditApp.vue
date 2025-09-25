@@ -38,8 +38,9 @@
                                                         <input type="text" name="name" required id="name"
                                                             autocomplete="off" v-model="appName"
                                                             class="block w-full rounded-lg md:rounded-[10px] border-0 py-5 pl-[15px] h-[40px] md:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm  sm:leading-[21px] focus:ring-[#83838B] focus-visible:outline-none"
-                                                            placeholder="" maxlength="50"/>
-                                                        <div v-if="appNameErr" class="error-msg mt-1 text-left">{{ appNameErr }}</div>
+                                                            placeholder="" maxlength="50" />
+                                                        <div v-if="appNameErr" class="error-msg mt-1 text-left">{{
+                                                            appNameErr }}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -50,11 +51,12 @@
                                                             Redirect URL
                                                         </p>
                                                     </div>
-                                                    <input @input="redirectUrlErr= ''" type="text" name="name" id="name" autocomplete="off"
-                                                        v-model="redirectUrl"
+                                                    <input @input="redirectUrlErr= ''" type="text" name="name" id="name"
+                                                        autocomplete="off" v-model="redirectUrl"
                                                         class="block w-full rounded-lg md:rounded-[10px] border-0  py-5 pl-[15px] h-[40px] md:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm  sm:leading-[21px] focus:ring-[#83838B] focus-visible:outline-none"
-                                                        placeholder=""/>
-                                                    <div v-if="redirectUrlErr" class="error-msg mt-1 text-left">{{ redirectUrlErr }}</div>
+                                                        placeholder="" />
+                                                    <div v-if="redirectUrlErr" class="error-msg mt-1 text-left">{{
+                                                        redirectUrlErr }}</div>
                                                 </div>
                                             </div>
                                             <div>
@@ -69,8 +71,9 @@
                                                         class="w-full h-[40px] md:h-[50px] px-[18px] cursor-pointer rounded-lg md:rounded-[10px] border-dashed border border-[#83838B] relative"
                                                         for="dropzone-file">
                                                         <input type="file" @click="errorMessage = '';imgUrl = null"
-                                                            @change="fileUpload" class="hidden" autocomplete="off" name="name" id="dropzone-file"
-                                                            accept=".jpg,.png" placeholder="" />
+                                                            :onchange="fileUpload" class="hidden" autocomplete="off"
+                                                            name="name" id="dropzone-file" accept=".jpg,.png"
+                                                            placeholder="" />
                                                         <div class="absolute  flex items-center h-full">
                                                             <img v-if="fileName == ''"
                                                                 src="../assets/img/Home/uploadIcon.svg" class="h-4 w-4"
@@ -87,10 +90,12 @@
                                                             Re-Upload
                                                         </div>
                                                     </label>
-                                                    <div class="mt-[11px] w-full text-end md:w-[330px]">
-                                                        <div class="text-end text-[#ACACAC] text-[11px]">JPG, PNG up to
-                                                            1
-                                                            MB</div>
+                                                    <div class="mt-[11px] flex items-center w-full"
+                                                        :class="errorMessage ? 'justify-between' : 'justify-end'">
+                                                        <div v-if="errorMessage" class="error-msg">{{ errorMessage }}
+                                                        </div>
+                                                        <p class="text-end text-[#ACACAC] text-[11px]">JPG, PNG up to 1
+                                                            MB</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -100,35 +105,44 @@
                                             <div>
                                                 <div class="flex flex-col space-y-[10px] md:space-y-3 justify-start">
                                                     <label id="primaryStaticIp"
-                                                        class="text-secondary text-[12px] sm:text-[14px] font-medium text-left">IP Type
+                                                        class="text-secondary text-[12px] sm:text-[14px] font-medium text-left">IP
+                                                        Type
                                                         <span class="text-red-500">*</span>
                                                     </label>
                                                     <selectFilter v-model="ipType" :options="ipTypes" width="w-full" />
                                                     <div class="mt-[11px] invisible">
-                                                        <p class="text-[11px] text-[#ACACAC] italic font-medium">Fields with an asterisk <span class="text-red-500">(*)</span> are required.
+                                                        <p class="text-[11px] text-[#ACACAC] italic font-medium">Fields
+                                                            with an asterisk <span class="text-red-500">(*)</span> are
+                                                            required.
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="flex flex-col space-y-[10px] md:space-y-[13px]">
-                                                <label id="primaryStaticIp" class="text-secondary text-[12px] sm:text-[14px] font-medium text-left">Primary
+                                                <label id="primaryStaticIp"
+                                                    class="text-secondary text-[12px] sm:text-[14px] font-medium text-left">Primary
                                                     Static IP <span class="text-red-500">*</span>
                                                 </label>
                                                 <input @input="primaryIpErr = ''" type="text" name="name"
                                                     id="primaryStaticIp" v-model="primaryStaticIp" autocomplete="off"
                                                     class="block w-full rounded-lg md:rounded-[10px] border-0  py-5 pl-[15px] h-[40px] sm:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm  sm:leading-[21px] focus:ring-[#83838B] focus-visible:outline-none"
-                                                    placeholder=""  maxlength="50"/>
-                                                <div v-if="primaryIpErr" class="error-msg mt-1 text-left whitespace-pre">{{ primaryIpErr }}</div>
+                                                    placeholder="" maxlength="50" @keydown.space.prevent/>
+                                                <div v-if="primaryIpErr"
+                                                    class="error-msg mt-1 text-left whitespace-pre">{{ primaryIpErr }}
+                                                </div>
                                             </div>
                                             <div class="flex flex-col space-y-[10px] md:space-y-[13px]">
                                                 <label id="secondaryStaticIp"
                                                     class="text-secondary text-[12px] sm:text-[14px] font-medium text-left">Secondary
                                                     Static IP</label>
-                                                <input @input="secondaryIpErr = ''" type="text" name="name" id="secondaryStaticIp"
-                                                    v-model="secondaryStaticIp" autocomplete="off"
+                                                <input @input="secondaryIpErr = ''" type="text" name="name"
+                                                    id="secondaryStaticIp" v-model="secondaryStaticIp"
+                                                    autocomplete="off"
                                                     class="block w-full rounded-lg md:rounded-[10px] border-0  py-5 pl-[15px] h-[40px] sm:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm  sm:leading-[21px] focus:ring-[#83838B] focus-visible:outline-none"
-                                                    placeholder="" maxlength="50"/>
-                                                <div v-if="secondaryIpErr" class="error-msg mt-1 text-left whitespace-pre">{{ secondaryIpErr }}</div>
+                                                    placeholder="" maxlength="50" @keydown.space.prevent/>
+                                                <div v-if="secondaryIpErr"
+                                                    class="error-msg mt-1 text-left whitespace-pre">{{ secondaryIpErr }}
+                                                </div>
                                             </div>
                                             <div class="flex flex-col space-y-[10px] md:space-y-[13px]">
                                                 <label id="algoRegisterType"
@@ -136,7 +150,8 @@
                                                     Registration Type
                                                     <span class="text-red-500">*</span>
                                                 </label>
-                                                <selectFilter :isDisabled="!isSelf" v-model="algoRegisterType" :options="registerTypes" width="w-full" />
+                                                <selectFilter :isDisabled="!isSelf" v-model="algoRegisterType"
+                                                    :options="registerTypes" width="w-full" />
                                             </div>
                                         </div>
                                         <div class="pt-10 flex justify-center">
@@ -162,7 +177,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, defineAsyncComponent } from 'vue'
+import { computed, ref, onMounted, defineAsyncComponent, watch } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { useStore } from 'vuex';
 const store = useStore();
@@ -171,7 +186,7 @@ const redirectUrl = ref('');
 const fileName = ref('')
 
 const open = computed(() => store.getters['getEdit']);
-const isFileNameExist = computed(() => fileName.value != '' ? true : false);
+// const isFileNameExist = computed(() => fileName.value != '' ? true : false);
 const editData = computed(() => store.getters["dashboard/getEditData"])
 const editLoader = computed(() => store.getters["dashboard/getEditLoader"])
 const errorMessage = ref('')
@@ -219,15 +234,20 @@ const validateStaticIpRegex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]
 // const validateIPv6Regex = /^(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|(([0-9a-fA-F]{1,4}:){1,7}:)|(([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4})|(([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2})|(([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3})|(([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4})|(([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5})|([0-9a-fA-F]{1,4}:)((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:))$/;
 const validateIPv6Regex = /^(?:((?:[0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|((?:[0-9A-Fa-f]{1,4}:){1,7}:)|((?:[0-9A-Fa-f]{1,4}:){1,6}:[0-9A-Fa-f]{1,4})|((?:[0-9A-Fa-f]{1,4}:){1,5}(?::[0-9A-Fa-f]{1,4}){1,2})|((?:[0-9A-Fa-f]{1,4}:){1,4}(?::[0-9A-Fa-f]{1,4}){1,3})|((?:[0-9A-Fa-f]{1,4}:){1,3}(?::[0-9A-Fa-f]{1,4}){1,4})|((?:[0-9A-Fa-f]{1,4}:){1,2}(?::[0-9A-Fa-f]{1,4}){1,5})|([0-9A-Fa-f]{1,4}:(?:(?::[0-9A-Fa-f]{1,4}){1,6}))|:(?:(?::[0-9A-Fa-f]{1,4}){1,7}|:))$/;
 const redirectUrlErr = ref('')
+
+const primaryStaticIp = ref('')
+const secondaryStaticIp = ref('')
+const algoRegisterType = ref()
 const handleSubmit = () => { 
+    debugger
     appNameErr.value = ''
     primaryIpErr.value = ''
     secondaryIpErr.value = ''
     redirectUrlErr.value = ''
     const currentRegex = ipType.value.key == 'ipv4' ? validateStaticIpRegex : validateIPv6Regex
     const exampleText = ipType.value.key == 'ipv4' ? '(e.g., 192.168.1.1)' : '(e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334)'
-    primaryStaticIp.value = primaryStaticIp.value.trim()
-    secondaryStaticIp.value = secondaryStaticIp.value.trim()
+    primaryStaticIp.value = primaryStaticIp.value?.trim()
+    secondaryStaticIp.value = secondaryStaticIp.value?.trim()
 
     if(!validateStaticIpRegex.test(primaryStaticIp.value)) {
         primaryIpErr.value = `Invalid IP format. Please enter a valid ${ipType.value.name} address\n${exampleText}.`
@@ -242,7 +262,7 @@ const handleSubmit = () => {
         secondaryIpErr.value = 'Primary and Secondary IPs cannot be the same'
     }
     if(secondaryStaticIp.value != '' && !currentRegex.test(secondaryStaticIp.value)) {
-        secondaryIpErr.value = `Invalid IP format. Please enter a valid ${ipType.value.name} address\n(e.g., 192.168.1.1).`
+        secondaryIpErr.value = `Invalid IP format. Please enter a valid ${ipType.value.name} address\n${exampleText}.`
     }
     if(redirectUrl.value && validateUrl(redirectUrl.value) == false) {
         redirectUrlErr.value = 'Please enter a valid URL'
@@ -266,9 +286,7 @@ const showEdit = (payload: boolean) => {
     store.commit('showEdit', payload);
 }
 
-const primaryStaticIp = ref()
-const secondaryStaticIp = ref()
-const algoRegisterType = ref()
+
 
 
 const registerTypes = ref([{ name: "Non-Registered (<10 OPS)", key: 'Non-Registered (<10 OPS)' }, { name: "Registered (>10 OPS)", key: 'Registered (>10 OPS)' }])
@@ -285,7 +303,7 @@ onMounted(() => {
             fileName.value = editData.value.companyLogo
             imgUrl.value = editData.value.companyLogo
         }
-
+debugger
         // algo fields
         if(editData.value?.ipType) {
             ipType.value = ipTypes.value.find((el:any) => el.key == editData.value?.ipType)
@@ -318,4 +336,9 @@ function validateUrl(url: string): boolean {
         return false;
     }
 }
+
+watch(() => ipType.value, () => {
+    primaryIpErr.value =  ''
+    secondaryIpErr.value = ''
+})
 </script>

@@ -36,10 +36,13 @@
                                 <button type="button"
                                     class=" inline-flex sm:w-[150px] w-[140px] justify-center rounded-md bg-white  px-3 py-2 font-semibold text-[#7F7F7F] shadow-sm ring-1 ring-inset ring-[#7F7F7F] sm:col-start-1 sm:mt-0"
                                     @click="close()" ref="cancelButtonRef">Cancel</button>
-                                <button  type="button"
+                                <button :disabled="isLoading" type="button"
                                     class="inline-flex w-[140px] text-nowrap sm:w-[150px] ml-[21px] justify-center items-center rounded-md bg-[#FAAA38] px-3 py-2 shadow-sm hover:bg-[#FAAA38] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FAAA38] sm:col-start-2"
                                     @click="deleteSession()"> 
-                                    <span class="text-white font-bold" >Confirm</span>
+                                    <span class="text-white font-bold" >
+                                        <spinner v-if="isLoading" />
+                                        <span class="text-white font-bold" v-if="!isLoading"> Confirm</span>
+                                    </span>
                                 </button>
                             </div>
                         </DialogPanel>
@@ -62,4 +65,5 @@ const deleteSession = ()=>{
     store.dispatch("dashboard/deleteSession")
 }
 
+const isLoading = computed(() => store.getters["dashboard/getEditLoader"])
 </script>

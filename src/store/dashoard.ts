@@ -242,10 +242,12 @@ const actions = {
             resp.data.result &&
             resp.data.result.length > 0
           ) {
-              const trading = resp.data.result.filter((el:any)=> el.vendorType == 'tradingPartner' && el.userSession)
-              const nonTrading = resp.data.result.filter((el:any)=> el.vendorType == 'nontrading'&& el.userSession)
+              const trading = resp.data.result.filter((el:any)=> el.sessionType == 'trading' && el.userSession)
+              const nonTrading = resp.data.result.filter((el:any)=> el.sessionType == 'non-trading'&& el.userSession)
               commit("setTradingSession", {trading,nonTrading}); 
-          }  
+          }  else {
+            commit("setTradingSession", {trading: [], nonTrading: []}); 
+          }
         },
         (err) => {
           console.log(err);
@@ -268,14 +270,29 @@ const actions = {
     await dashdoardService
       .deleteTradingSession(json)
       .then(
-        (resp: any) => { 
+        (resp: any) => {
+          let toasterParam;
           if (
             resp.status == 200 &&
-            resp.data.status == "Ok" &&
-            resp.data.message == "Success"  
-          ) {                
-                dispatch('getTradeSession')
-          } 
+            resp.data.status == "OK" &&
+            resp.data.message == "Success"
+          ) {
+            dispatch('getTradeSession')
+            toasterParam = {
+              title: "",
+              type: "success",
+              message: resp.data?.result?.[0]?.message || resp.data?.message,
+              duration: 4500,
+            }
+          } else {
+            toasterParam = {
+              title: "",
+              type: "danger",
+              message: resp.data?.message,
+              duration: 4500,
+            }
+          }
+          dispatch("errorHandle/toaster", { data: toasterParam, position: "" }, { root: true })
         },
         (error) => {
           dispatch("errorHandle/errorLog", error, { root: true })

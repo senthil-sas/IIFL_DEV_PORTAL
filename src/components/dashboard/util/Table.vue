@@ -39,12 +39,12 @@
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-[#363636] sm:pl-6">
                                     {{ record.appName }}</td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-[#363636]">{{ record.name }}
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-[#363636]">{{ record.ucc }}
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-[#363636] ">
                                     <div class="longTxtRestrict">{{ record.userSession }}</div>
                                 </td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-[#363636]">{{ record.expiry }}</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-[#363636]">{{ record.expiryDate || 'NA'}}</td>
                                 <td
                                     class="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
                                     <a class="text-indigo-600 absolute hover:text-indigo-900 text-left">
@@ -112,7 +112,7 @@
 </template>
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import NoSession from '../util/NoSession.vue';
 import { useStore } from 'vuex';
 const store = useStore();
@@ -126,6 +126,7 @@ const getWindowHeight = (id: any) => {
 const props = defineProps<{
     sessionData?: any
 }>()
+
 const checkBoxSelectAll = computed<any>({
     get() {
         return props.sessionData
@@ -148,15 +149,18 @@ const onSubmit = (record:any) => {
     store.commit("dashboard/setIsDeleteSession", true)
 }
 const onCancel = () => {
-    // console.log("Cancel...");
+    console.log("Cancel...");
 }
 const deleteAll = () => {    
     store.commit("dashboard/setSessionDeleteData", selectedCheckbox.value)
     store.commit("dashboard/setIsDeleteSession", true)
 }
 
-// const handleSubmit = () => {
-//     console.log("onsubmitted...");
-// }
+const isDeleteSession = computed(()=>store.getters['dashboard/getIsDeleteSession'])
+watch(isDeleteSession, (newVal:any) => {
+    if(!newVal){
+        selectedCheckbox.value = []
+    }
+})
 
 </script>

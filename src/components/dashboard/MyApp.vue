@@ -23,7 +23,7 @@
         
         </div> 
         <Banner v-if="(partnerApps && partnerApps.length <= 0) && !loader" />
-        <!-- <div class="my-[80px] lg:mt-[158px] px-5" >
+        <div class="my-[80px] lg:mt-[80px]" v-if="!loader">
         <div  v-if="sessionData && ((sessionData.trading && sessionData.trading.length > 0) || (sessionData.nonTrading && sessionData.nonTrading.length > 0))">
             <div >
                 <p class="text-[16px] sm:text-[22px] text-[#282828] font-bold">Active Sessions {{sessionLength ? sessionLength : ''}}</p>
@@ -45,25 +45,25 @@
             </div>
         </div>
         <NoSession v-else />
-    </div> -->
+    </div>
     </div>
     <ViewDetailsDialog v-if="isViewDetailsDialog"/>
 </template>
 <script setup lang="ts">
 import Banner from './util/Banner.vue';
 import AppCard from './util/AppCard.vue';
-// import NoSession from './util/NoSession.vue';
-// import Table from './util/Table.vue';
-// import TableMobView from './util/TableMobView.vue';
+import NoSession from './util/NoSession.vue';
+import Table from './util/Table.vue';
+import TableMobView from './util/TableMobView.vue';
 import { useRouter } from 'vue-router'
-import { computed, onMounted, defineAsyncComponent } from 'vue';
+import { computed, onMounted, defineAsyncComponent, ref } from 'vue';
 import { useStore } from "vuex";
 const store =useStore();
-// const tabs = ref([
-//     { id: 0, name: 'Trading Sessions', href: '#', current: true },
-//     { id: 1, name: 'Non-Trading Sessions', href: '#', current: false },
-// ]);
-// const currentTab = ref()
+const tabs = ref([
+    { id: 0, name: 'Trading Sessions', href: '#', current: true },
+    { id: 1, name: 'Non-Trading Sessions', href: '#', current: false },
+]);
+const currentTab = ref()
 const loader = computed(() => store.getters["dashboard/getIsLoader"])
 const company = computed(()=> store.getters["auth/getCmpName"])
 const router = useRouter()
@@ -71,27 +71,31 @@ const navigateCreateApp = () => {
     router.push({ path: '/developer/create_app' });
 }
 const partnerApps: any = computed(() => store.getters["dashboard/getPartnerApps"]); 
-// const sessionData: any = computed(() => store.getters["dashboard/getTradingSession"]); 
-// const sessionLength =  computed(() => {
-//     return  currentTab.value == 1 ? 
-//     sessionData.value.nonTrading.length > 0 ?`(${sessionData.value.nonTrading.length})` : '' :
-//     sessionData.value.trading.length > 0 ? `(${sessionData.value.trading.length})` : ''
-// }) 
-// const activeTab = (tab: any) => { 
-//     store.commit("dashboard/setActiveSessionTab", tab.name)
-//     currentTab.value = tab.id
+const sessionData: any = computed(() => store.getters["dashboard/getTradingSession"]); 
+const sessionLength =  computed(() => {
+    // return  currentTab.value == 1 ? 
+    // sessionData.value.nonTrading.length > 0 ?`(${sessionData.value.nonTrading.length})` : '' :
+    // sessionData.value.trading.length > 0 ? `(${sessionData.value.trading.length})` : ''
+    let length = 0
+    length = sessionData.value.nonTrading ? length + sessionData.value.nonTrading.length : length
+    length = sessionData.value.trading ? length + sessionData.value.trading.length : length
+    return `(${length})`
+}) 
+const activeTab = (tab: any) => { 
+    store.commit("dashboard/setActiveSessionTab", tab.name)
+    currentTab.value = tab.id
     
-//     tabs.value = tabs.value.map((data) => {
-//         if (tab.name == data.name) {
-//             data.current = true;
-//             return data;
-//         }
-//         else {
-//             data.current = false;
-//             return data;
-//         }
-//     })
-// }
+    tabs.value = tabs.value.map((data) => {
+        if (tab.name == data.name) {
+            data.current = true;
+            return data;
+        }
+        else {
+            data.current = false;
+            return data;
+        }
+    })
+}
 
 onMounted(()=>{
     store.dispatch("dashboard/getPartnerApps")

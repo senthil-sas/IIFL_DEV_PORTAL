@@ -36,7 +36,7 @@
                         <input :type="showPassword ? 'text' : 'password'" name="password" id="password"
                             ref="passwordRef" v-model="password"
                             class="block w-full rounded-lg md:rounded-[10px] border-0 px-12 h-[40px] sm:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm focus:ring-[#83838B]  focus-visible:outline-none"
-                            placeholder="" maxlength="12" @input="strengthValidation(), enableButton()"/>
+                            placeholder="" maxlength="12" @input="strengthValidation(), enableButton()" @keydown.space.prevent/>
                         <div class="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer">
                             <button type="button" @click="viewPassword()">
                                 <img src="../../assets/img/login/HidePassword.svg" class=" cursor-pointer"
@@ -70,7 +70,7 @@
                             v-model="newPassword"
                             :class="!passwordMatch && newPassword != '' ? 'focus:ring-[#EB1414]' : ''"
                             class="block w-full rounded-lg md:rounded-[10px] border-0 px-12 h-[40px] sm:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm focus-visible:outline-none"
-                            placeholder="" maxlength="12" />
+                            placeholder="" maxlength="12" @keydown.space.prevent/>
                         <div class="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer">
                             <button type="button" @click="newviewPassword()">
                                 <img src="../../assets/img/login/HidePassword.svg" class="cursor-pointer"

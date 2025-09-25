@@ -95,7 +95,7 @@
                             </div>
                             <input @input="primaryIpErr = ''" type="text" name="name" id="primaryStaticIp" v-model="primaryStaticIp" autocomplete="off"
                                 class="block w-full md:w-[330px] rounded-lg md:rounded-[10px] border-0  py-5 pl-[15px] h-[40px] sm:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm  sm:leading-[21px] focus:ring-[#83838B] focus-visible:outline-none"
-                                placeholder="" maxlength="50"/>
+                                placeholder="" maxlength="50" @keydown.space.prevent/>
                             <div v-if="primaryIpErr" class="error-msg mt-1 whitespace-pre">{{ primaryIpErr }}</div>
                         </div>
                         <div class="flex flex-col space-y-[10px] md:space-y-[13px]">
@@ -104,7 +104,7 @@
                             </div>
                             <input @input="secondaryIpErr = ''" type="text" name="name" id="secondaryStaticIp" v-model="secondaryStaticIp" autocomplete="off"
                                 class="block w-full md:w-[330px] rounded-lg md:rounded-[10px] border-0  py-5 pl-[15px] h-[40px] sm:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm  sm:leading-[21px] focus:ring-[#83838B] focus-visible:outline-none"
-                                placeholder="" maxlength="50"/>
+                                placeholder="" maxlength="50" @keydown.space.prevent/>
                             <div v-if="secondaryIpErr" class="error-msg mt-1 text-left whitespace-pre">{{ secondaryIpErr }}</div>
                         </div>
                         <div class="flex flex-col space-y-[10px] md:space-y-[13px]">
@@ -214,7 +214,6 @@ const secondaryIpErr = ref('')
 const algoRegisterTypeErr = ref('')
 const redirectUrlErr = ref('')
 const handleSubmit = () => { 
-    debugger
     appNameErr.value = ''
     primaryIpErr.value = ''
     secondaryIpErr.value = ''
@@ -237,7 +236,7 @@ const handleSubmit = () => {
         secondaryIpErr.value = 'Primary and Secondary IPs cannot be the same'
     }
     if(secondaryStaticIp.value != '' && !currentRegex.test(secondaryStaticIp.value)) {
-        secondaryIpErr.value = `Invalid IP format. Please enter a valid ${ipType.value.name} address\n(e.g., 192.168.1.1).`
+        secondaryIpErr.value = `Invalid IP format. Please enter a valid ${ipType.value.name} address\n${exampleText}.`
     }
     if(!algoRegisterType.value) {
         algoRegisterTypeErr.value = 'Please select Algo Registration Type'

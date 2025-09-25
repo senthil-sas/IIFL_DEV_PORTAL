@@ -36,5 +36,5 @@ function getTradeSession(){
 }
 
 function deleteTradingSession(payload:any){
-  return AXIOS.post(`developers-api/dev/revoke/user`,payload, getHeaders())
+  return AXIOS.post(`v1/portal/dev/revoke/user`,payload, getHeaders())
 }
