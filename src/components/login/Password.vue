@@ -17,7 +17,7 @@
                             <img class="size-5 md:size-6" src="../../assets/img/login/lockPassword.svg" alt="sms-logo">
                         </div>
                         <input :type="showPassword ? 'text' : 'password'" name="password" id="password" ref="passwordRef" v-model="password"
-                            class="block w-full rounded-lg md:rounded-[10px] border-0 px-12 h-[40px] sm:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm focus:ring-[#83838B]  focus-visible:outline-none" placeholder="" @input="resetError()" />
+                            class="block w-full rounded-lg md:rounded-[10px] border-0 px-12 h-[40px] sm:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm focus:ring-[#83838B]  focus-visible:outline-none" placeholder="" @input="resetError()" maxlength="12"/>
                         <div class="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer">
                             <button @click="viewPassword()" type="button">
                                 <img src="../../assets/img/login/HidePassword.svg" class=" cursor-pointer"

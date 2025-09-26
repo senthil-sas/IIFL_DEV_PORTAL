@@ -206,7 +206,7 @@ const logOut = ()=>{
 }
 
 const goToHome = () => {
-    router.push('/')
+    router.push('/developer/')
 }
 
 const navigateHead = (data: Ttab) => {

@@ -239,7 +239,6 @@ const primaryStaticIp = ref('')
 const secondaryStaticIp = ref('')
 const algoRegisterType = ref()
 const handleSubmit = () => { 
-    debugger
     appNameErr.value = ''
     primaryIpErr.value = ''
     secondaryIpErr.value = ''
@@ -249,14 +248,14 @@ const handleSubmit = () => {
     primaryStaticIp.value = primaryStaticIp.value?.trim()
     secondaryStaticIp.value = secondaryStaticIp.value?.trim()
 
-    if(!validateStaticIpRegex.test(primaryStaticIp.value)) {
+    if(!currentRegex.test(primaryStaticIp.value)) {
         primaryIpErr.value = `Invalid IP format. Please enter a valid ${ipType.value.name} address\n${exampleText}.`
     }
     if(primaryStaticIp.value == '') {
         primaryIpErr.value = `Please enter a ${ipType.value.name} address`
     }
-    if(appName.value == '') {
-        appNameErr.value = 'Please enter a App Name'
+    if(!appName.value) {
+        appNameErr.value = 'App name is required'
     }
     if(secondaryStaticIp.value != '' && secondaryStaticIp.value == primaryStaticIp.value) {
         secondaryIpErr.value = 'Primary and Secondary IPs cannot be the same'
@@ -267,7 +266,7 @@ const handleSubmit = () => {
     if(redirectUrl.value && validateUrl(redirectUrl.value) == false) {
         redirectUrlErr.value = 'Please enter a valid URL'
     }
-    if(!validateStaticIpRegex.test(primaryStaticIp.value) || !appName.value || !algoRegisterType.value || secondaryIpErr.value != ''|| (redirectUrl.value != '' && redirectUrlErr.value != '')) {
+    if(!currentRegex.test(primaryStaticIp.value) || !appName.value || !algoRegisterType.value || secondaryIpErr.value != ''|| (redirectUrl.value != '' && redirectUrlErr.value != '')) {
         return
     }
     let json:any = {

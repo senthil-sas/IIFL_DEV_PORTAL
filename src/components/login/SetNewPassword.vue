@@ -6,22 +6,12 @@
                 <img @click="backToStage()" class="sm:hidden" src="../../assets/img/login/backNavigation.svg"
                     alt="navigation">
             </div>
-            <div v-if="stage == 'setNewPassword'">
+            <div>
                 <div
                     class="font-bold login-header text-lg sm:text-2xl text-center leading-[40px] mt-2 sm:mt-3 text-[#282828]">
                     Set New Password
                 </div>
                 <div class="font-medium text-center text-[#919191] text-[16px] mt-3 sm:mt-4 leading-[21px]">Please enter a new password</div>
-            </div>
-            <div v-else-if="stage == 'newPasswordForPartner'">
-                <div
-                    class="font-bold login-header text-lg sm:text-2xl text-center leading-[40px] mt-[8px] sm:mt-[50px] text-[#282828]">
-                    Set New Password
-                </div>
-                <div class="font-medium text-center text-[#919191] text-[16px] mt-[8px] sm:mt-[20px] leading-[21px]">
-                    Please enter a
-                    new password
-                </div>
             </div>
             <form @submit.prevent="onSubmit()">
                 <div class="mt-4 sm:mt-7">
