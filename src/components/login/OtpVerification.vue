@@ -102,7 +102,7 @@ const store = useStore();
 const otpInput = ref(null);
 // const bindValue = ref("");
 const mobileOtp = ref("");
-const otpTime = ref(15);
+const otpTime = ref(30);
 const stage = computed(() => store.getters['getLoginStage']);
 const loader: any = computed(() => store.getters["auth/getIsLoader"]);
 const errorMsg = computed(() => store.getters["auth/getErrorMsg"]);
@@ -122,7 +122,7 @@ watch(mobileOtp, (newVal) => {
     }
 })
 const verifyEnable = computed(() => mobileOtp.value.length == 6 ? true : false);
-const resendEnable = computed(() => otpTime.value == 15 ? true : false);
+const resendEnable = computed(() => otpTime.value == 30 ? true : false);
 const onSubmit = () => {
     if (stage.value == 'forgetPasswordOtp') {
         store.dispatch('auth/verifyForgetOtp', mobileOtp.value ).finally(()=>{
@@ -170,7 +170,7 @@ const updateTimer = () => {
     }
     else {
         clearInterval(timer);
-        otpTime.value = 15;
+        otpTime.value = 30;
         timer = null;
         isDisabled.value = false
     }

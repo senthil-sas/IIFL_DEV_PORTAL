@@ -302,7 +302,6 @@ onMounted(() => {
             fileName.value = editData.value.companyLogo
             imgUrl.value = editData.value.companyLogo
         }
-debugger
         // algo fields
         if(editData.value?.ipType) {
             ipType.value = ipTypes.value.find((el:any) => el.key == editData.value?.ipType)

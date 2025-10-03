@@ -1,6 +1,6 @@
 <template>
     <!-- w-[320px] -->
-    <div class="h-auto border border-[#E5E5E5] w-full sm:w-[500px] rounded-[20px] shadow-[0px_10px_50px_0px_#B5B5B54D] z-[999] bg-white relative bg-white">
+    <div class="h-auto border border-[#E5E5E5] w-full sm:w-[500px] rounded-[20px] shadow-[0px_10px_50px_0px_#B5B5B54D] z-[999] bg-white relative">
         <div class="px-5 py-6 md:p-[50px] sm:space-y-[40px]">
             <div class="flex justify-start sm:flex-none">
                 <img class="mx-auto hidden sm:block" :src="store.state.clientLogo" alt="IIFL-Logo">

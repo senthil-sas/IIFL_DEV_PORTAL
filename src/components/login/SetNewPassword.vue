@@ -60,7 +60,7 @@
                             v-model="newPassword"
                             :class="!passwordMatch && newPassword != '' ? 'focus:ring-[#EB1414]' : ''"
                             class="block w-full rounded-lg md:rounded-[10px] border-0 px-12 h-[40px] sm:h-[50px] text-[#1D1D1F] text-sm md:text-[16px] font-semibold ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400  sm:text-sm focus-visible:outline-none"
-                            placeholder="" maxlength="12" @keydown.space.prevent/>
+                            placeholder="" maxlength="12" @keydown.space.prevent @input="enableButton()"/>
                         <div class="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer">
                             <button type="button" @click="newviewPassword()">
                                 <img src="../../assets/img/login/HidePassword.svg" class="cursor-pointer"
@@ -72,26 +72,28 @@
                     </div>
 
                     <div class="mt-1">
-                        <span v-if="password == newPassword && newPassword != '' && password != ''"
+                        <span v-if="password == newPassword && newPassword != '' && password != '' && errorMsg == ''"
                             class="py-14 text-[#919191] text-[11px]">
                             <img class="inline" src="../../assets/img/login/greenTick.svg" alt="">
                             Password matched!
                         </span>
                         <span v-else-if="!passwordMatch && newPassword != ''"
                             class="text-[11px] text-[#EB1414]">Password does not match</span>
+                            <div v-if="errorMsg != ''"
+                            class="text-[11px] text-[#EB1414]">{{ errorMsg }}</div>
                     </div>
 
                 </div>
                 <div class="mt-5 md:mt-6">
                     <button v-if="stage == 'setNewPassword'" type="submit"
-                        :disabled="!validationCondition || !passwordMatch"
+                        :disabled="validationCondition || loader"
                         :class="password == newPassword && newPassword != '' && password != '' ? 'bg-[#FAAA38]' : 'bg-[#DEDEDE] cursor-not-allowed'"
                         class="w-full text-white h-[40px] sm:h-[50px] rounded-lg md:rounded-[10px] text-[16px] sm:text-[20px] cursor-pointer">
                         <spinner v-if="loader" />
                         <span class="leading-[21px] sm:leading-[27px] font-bold" v-if="!loader">Set Password</span>
                     </button>
                     <button v-else-if="stage == 'newPasswordForPartner'" type="submit"
-                        :disabled="loader"
+                        :disabled="validationCondition || loader"
                         :class="password == newPassword && newPassword != '' && password != '' && !loader ? 'bg-[#FAAA38]' : 'bg-[#DEDEDE] cursor-not-allowed'"
                         class="w-full text-white h-[40px] sm:h-[50px] text-[16px] sm:text-[20px] rounded-lg md:rounded-[10px] cursor-pointer">
                         <spinner v-if="loader" />
@@ -133,7 +135,7 @@ const backToStage = () => {
 }
 
 const validateForm = () => {
-    return password.value == newPassword.value && newPassword.value != '' && password.value != '' && validationCondition.value
+    return password.value == newPassword.value && newPassword.value != '' && password.value != '' && !validationCondition.value
 }
 
 
@@ -145,6 +147,7 @@ const newviewPassword = () => {
 }
 
 const onSubmit = () => {
+    
     if(validateForm()) {
         stage.value == 'setNewPassword' ? store.dispatch("auth/resetPassword", newPassword.value) :
         store.dispatch("auth/createPassword", newPassword.value)
@@ -191,7 +194,7 @@ const strengthValidation = () => {
     });
 };
 
-const validationCondition = ref(false)
+const validationCondition = ref(true)
 
 const enableButton = () => {
     if (password.value != "" && newPassword.value == password.value) {
@@ -208,4 +211,5 @@ const enableButton = () => {
 };
 
 const icons = defineAsyncComponent(() => import('@/components/icons.vue'))
+const errorMsg = computed(() => store.getters["auth/getErrorMsg"]);
 </script>
