@@ -203,4 +203,10 @@ const resetError = () => {
     store.commit("auth/setErrMsg", "")
 }
 
+watch(errorMsg, (newVal) => {
+    if (newVal != '') {
+        mobileOtp.value = ''
+    }
+})
+
 </script>

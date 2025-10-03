@@ -48,7 +48,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
 import { useStore } from "vuex";
 const store = useStore();
 const password = ref('');
@@ -79,4 +79,10 @@ onMounted(()=>{
 const resetError = () => {
     store.commit('auth/setErrMsg', '')
 }
+
+watch(errorMsg, (newVal) => {
+    if (newVal != '') {
+        password.value = ''
+    }
+})
 </script>
