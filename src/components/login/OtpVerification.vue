@@ -179,13 +179,29 @@ const updateTimer = () => {
 const resentOtp = async() => {
     resetError()
     if(stage.value == 'mobileOtpVerification') {
-        store.dispatch("auth/sendPartnerMobilOtp", userId.value).finally(() => initiateTimer())
+        store.dispatch("auth/sendPartnerMobilOtp", userId.value).finally(() => {
+            if(errorMsg.value == '') {
+                initiateTimer()
+            }
+        })
     } else if(stage.value == "otpVerification") {
-        store.dispatch("auth/resendOtp").finally(() => initiateTimer())
+        store.dispatch("auth/resendOtp").finally(() => {
+            if(errorMsg.value == '') {
+                initiateTimer()
+            }
+        })
     } else if(stage.value == "emailOtpVerify") {
-        store.dispatch("auth/sendPartnerEmailOtp", userMailId.value).finally(() => initiateTimer())
+        store.dispatch("auth/sendPartnerEmailOtp", userMailId.value).finally(() => {
+            if(errorMsg.value == '') {
+                initiateTimer()
+            }
+        })
     }else if(stage.value == "forgetPasswordOtp") {
-        store.dispatch("auth/sendForgetOtp", userId.value).finally(() => initiateTimer())
+        store.dispatch("auth/sendForgetOtp", userId.value).finally(() => {
+            if(errorMsg.value == '') {
+                initiateTimer()
+            }
+        })
     }
 }
 
