@@ -5,7 +5,7 @@
             <spinner  v-if="loader" />    
         </div>
         
-        <div class="px-5 lg:px-0" v-if="partnerApps && partnerApps.length > 0 && !loader">
+        <div class="px-5 lg:px-0 pb-10" v-if="partnerApps && partnerApps.length > 0 && !loader">
             <div class="flex justify-between items-center mt-8">
                 <div>
                     <p class=" font-bold text-[16px] lg:text-[22px] text-[#363636]">Your Applications {{`${partnerApps && partnerApps.length > 0 ? `(${partnerApps.length})` : ''}`}}</p>

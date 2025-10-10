@@ -207,6 +207,10 @@ const logOut = ()=>{
 
 const goToHome = () => {
     router.push('/developer/')
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 }
 
 const navigateHead = (data: Ttab) => {

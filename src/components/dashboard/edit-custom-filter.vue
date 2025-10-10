@@ -2,10 +2,10 @@
     <div class="relative" :class="width">
         <Listbox v-model="selectedValue">
             <div class="relative">
-                <ListboxButton :disabled="isDisabled"
+                <ListboxButton :class="{ 'bg-[#EBEBEB]' : isDisabled}" :disabled="isDisabled"
                     class="truncate text-primary text-left text-base font-semibold block w-full rounded-lg md:rounded-[10px] border-0 pl-[15px] h-[40px] sm:h-[50px] text-[#1D1D1F] md:text-[16px] ring-1 ring-inset ring-[#83838B] placeholder:text-gray-400 sm:text-sm sm:leading-[21px] focus:ring-[#83838B] focus-visible:outline-none">
                     {{ selectedValue?.name }}
-                    <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2" v-if="!isDisabled">
                         <!-- <ChevronUpDownIcon class=" text-gray-400" aria-hidden="true" /> -->
                         <img class="size-4" :src="downArrow" alt="downArrow">
                     </span>
