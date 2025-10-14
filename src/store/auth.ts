@@ -342,15 +342,10 @@ const actions = {
       });
   },
 
-  async saveCmpDetails({ state, commit }: any, payload:String) {
+  async saveCmpDetails({ commit }: any, payload:String) {
     commit("setIsLoader", true);
-    const json = {
-      "companyName": state.companyDetails.name,
-      "companyWebsite": state.companyDetails.website,
-      "businessType": payload
-    }
     await authService
-      .saveCmpDetails(json)
+      .saveCmpDetails(payload)
       .then(
         (resp: any) => {
           if ( resp.status == 200 && Array.isArray(resp.data.result) && resp.data.result[0]?.status == "Success" ) {

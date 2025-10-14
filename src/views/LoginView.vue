@@ -13,7 +13,7 @@
                     <SetNewPassword v-else-if="stage == 'setNewPassword' || stage == 'newPasswordForPartner'" />
                     <PartnerNotFound v-else-if="stage == 'partnerNotFound'" />
                     <CreateNewAccount v-else-if="stage == 'createNewPartner'" />
-                    <BusinessType v-else-if="stage == 'businessType'" />
+                    <!-- <BusinessType v-else-if="stage == 'businessType'" /> -->
                     <EmailVerify v-else-if="stage == 'emailVerify'" />
                 </div>
                 <div class="hidden xl:flex flex-col justify-center items-center space-y-10 ">
@@ -56,7 +56,7 @@ const SetNewPassword = defineAsyncComponent(() => import("@/components/login/Set
 const SuccessMessage = defineAsyncComponent(() => import("@/components/login/SuccessMessage.vue"))
 const PartnerNotFound = defineAsyncComponent(() => import("@/components/login/CreateNewPartner.vue"))
 const CreateNewAccount = defineAsyncComponent(() => import("@/components/login/CreateNewAccount.vue"))
-const BusinessType = defineAsyncComponent(() => import("@/components/login/BusinessType.vue"))
+// const BusinessType = defineAsyncComponent(() => import("@/components/login/BusinessType.vue"))
 const EmailVerify = defineAsyncComponent(() => import("@/components/login/EmailVerify.vue"))
 const BigSpinner = defineAsyncComponent(() => import("@/components/common/big-spinner.vue"))
 

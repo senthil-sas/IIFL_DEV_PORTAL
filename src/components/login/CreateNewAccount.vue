@@ -37,8 +37,9 @@
                 </div>
                 <div class="mt-[11px]  text-[11px] h-[11px] text-[#EB1414]" v-if="websiteName.length !=0 && !validateURL" ><span v-if="websiteName.length !=0 && !validateURL" >Please Provide Valid Website</span></div>
                 <div class="mt-[30px]">
-                    <button type="submit" :class="companyName.length && websiteName.length? 'bg-[#FAAA38]':'bg-[#DEDEDE]'" class="w-full text-white h-[40px] sm:h-[50px] rounded-lg md:rounded-[10px] font-bold text-[16px] sm:text-[20px]">
-                        Continue
+                    <button :disabled="loader" type="submit" :class="companyName.length && websiteName.length? 'bg-[#FAAA38]':'bg-[#DEDEDE]'" class="w-full text-white h-[40px] sm:h-[50px] rounded-lg md:rounded-[10px] font-bold text-[16px] sm:text-[20px]">
+                        <spinner v-if="loader" />    
+                        <span class="leading-[27px] font-bold" v-if="!loader" >Continue</span>
                     </button>
                 </div>
             </form>
@@ -65,9 +66,16 @@ const backToStage = ()=> {
 const OnSubmit= async () => {
     const json =  {
         name: companyName.value,
-        website: websiteName.value
+        website: websiteName.value,
     }
     await store.commit('auth/setCompanyDetails', json);
-    await store.commit('setLoginStage','businessType');
+    // await store.commit('setLoginStage','businessType');
+    const param = {
+        "companyName": companyName.value,
+        "companyWebsite": websiteName.value,
+        "businessType": "trading"
+    }
+    store.dispatch("auth/saveCmpDetails", param)
 }
+const loader = computed(() => store.getters["auth/getIsLoader"]);
 </script>
